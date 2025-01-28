@@ -7,10 +7,12 @@ import {
   Typography,
 } from '@mui/material';
 import { ShoppingCart } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import logo from '../assets/cw.svg';
 
 const NavBar = () => {
+  const { count } = useSelector((state) => state.baskets);
   const navigate = useNavigate();
   return (
     <AppBar position="static" color="inherit">
@@ -38,7 +40,7 @@ const NavBar = () => {
           Clarusway Shopping
         </Typography>
         <Button color="inherit" onClick={() => navigate('/basket')}>
-          <Badge badgeContent="0" color="error">
+          <Badge badgeContent={count} color="error">
             <ShoppingCart />
           </Badge>
         </Button>
