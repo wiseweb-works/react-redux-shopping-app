@@ -1,29 +1,34 @@
 import { CircularProgress, Container, Grid2 } from '@mui/material';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setLoading,
+  setProducts,
+  setSelected,
+} from '../redux/reducer/productReducer';
 import ProductCard from '../components/ProductCard';
 import CategoryBar from '../components/CategoryBar';
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [selected, setSelected] = useState('');
+  const dispatch = useDispatch();
+  const { products, selected, loading } = useSelector((state) => state.product);
 
   useEffect(() => {
     getProducts();
   }, []);
 
-  const getProducts = (url = '') => {
-    const baseUrl = 'https://fakestoreapi.com/products';
-    setLoading(true);
+  const getProducts = () => {
+    dispatch(setLoading(true));
     axios
-      .get(baseUrl + url)
+      .get('https://fakestoreapi.com/products')
       .then((res) => {
-        setProducts(res.data);
+        dispatch(setProducts(res.data));
       })
       .catch((e) => console.log(e))
-      .finally(() => setLoading(false));
+      .finally(() => dispatch(setLoading(false)));
   };
+
   return (
     <Container>
       {!loading ? (
@@ -31,7 +36,7 @@ const Home = () => {
           <CategoryBar
             getProducts={getProducts}
             selected={selected}
-            setSelected={setSelected}
+            setSelected={(value) => dispatch(setSelected(value))}
           />
           {products.map((product) => (
             <Grid2 item key={product.id}>

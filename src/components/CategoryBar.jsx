@@ -4,13 +4,17 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setLoading, setProducts } from '../redux/reducer/productReducer';
 
-const CategoryBar = ({ getProducts, selected, setSelected }) => {
+const CategoryBar = ({ selected, setSelected }) => {
   const [categories, setCategories] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getCategories();
   }, []);
+
   const getCategories = () => {
     const baseUrl = 'https://fakestoreapi.com/products/categories';
     axios
@@ -20,9 +24,21 @@ const CategoryBar = ({ getProducts, selected, setSelected }) => {
       })
       .catch((e) => console.log(e));
   };
+
+  const getProducts = (url = '') => {
+    const baseUrl = 'https://fakestoreapi.com/products';
+    dispatch(setLoading(true));
+    axios
+      .get(baseUrl + url)
+      .then((res) => {
+        dispatch(setProducts(res.data));
+      })
+      .catch((e) => console.log(e))
+      .finally(() => dispatch(setLoading(false)));
+  };
+
   const handleClick = (e) => {
-    const value = e.target.value;
-    setSelected(value);
+    setSelected(e.target.value);
     getProducts(e.target.value && `/category/${e.target.value}`);
   };
   return (
