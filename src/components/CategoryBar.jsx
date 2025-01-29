@@ -1,15 +1,22 @@
 import { useEffect, useState } from 'react';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
+import {
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+} from '@mui/material/';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { setLoading, setProducts } from '../redux/reducer/productReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setLoading,
+  setProducts,
+  setSelected,
+} from '../redux/reducer/productReducer';
 
-const CategoryBar = ({ selected, setSelected }) => {
+const CategoryBar = () => {
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
+  const { selected } = useSelector((state) => state.product);
 
   useEffect(() => {
     getCategories();
@@ -38,7 +45,7 @@ const CategoryBar = ({ selected, setSelected }) => {
   };
 
   const handleClick = (e) => {
-    setSelected(e.target.value);
+    dispatch(setSelected(e.target.value));
     getProducts(e.target.value && `/category/${e.target.value}`);
   };
   return (
