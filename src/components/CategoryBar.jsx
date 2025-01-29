@@ -5,7 +5,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import axios from 'axios';
 
-export default function CategoriBar({ getProducts, selected, setSelected }) {
+const CategoryBar = ({ getProducts, selected, setSelected }) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -47,4 +47,6 @@ export default function CategoriBar({ getProducts, selected, setSelected }) {
       </RadioGroup>
     </FormControl>
   );
-}
+};
+
+export default CategoryBar;

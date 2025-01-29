@@ -2,7 +2,7 @@ import { CircularProgress, Container, Grid2 } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
-import CategoriBar from '../components/CategoryBar';
+import CategoryBar from '../components/CategoryBar';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -28,7 +28,7 @@ const Home = () => {
     <Container>
       {!loading ? (
         <Grid2 container justifyContent="center" spacing={4} mt={10}>
-          <CategoriBar
+          <CategoryBar
             getProducts={getProducts}
             selected={selected}
             setSelected={setSelected}
