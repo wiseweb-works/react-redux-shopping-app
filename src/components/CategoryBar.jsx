@@ -4,7 +4,7 @@ import {
   RadioGroup,
   FormControlLabel,
   FormControl,
-} from '@mui/material/';
+} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setSelected,

@@ -1,4 +1,4 @@
-import { Container, Grid2 } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import BasketCard from '../components/BasketCard';
 import EmptyBasketTotal from '../components/EmptyBasketTotal';
@@ -10,25 +10,25 @@ const Basket = () => {
     <Container>
       {count ? (
         <>
-          <Grid2 container justifyContent="center" spacing={4} mt={10}>
+          <Grid container justifyContent="center" spacing={4} mt={10}>
             {basket.map((product) => (
-              <Grid2 item key={product.id}>
+              <Grid item key={product.id}>
                 <BasketCard product={product} />
-              </Grid2>
+              </Grid>
             ))}
-          </Grid2>
+          </Grid>
           <FilledBasketTotal />
         </>
       ) : (
         <>
-          <Grid2
+          <Grid
             container
             justifyContent="center"
             alignItems={'center'}
             mt={15}
           >
             <EmptyBasketTotal />
-          </Grid2>
+          </Grid>
         </>
       )}
     </Container>

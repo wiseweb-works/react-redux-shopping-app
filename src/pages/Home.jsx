@@ -1,4 +1,4 @@
-import { CircularProgress, Container, Grid2 } from '@mui/material';
+import { CircularProgress, Container, Grid } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../redux/reducer/productReducer';
@@ -16,18 +16,18 @@ const Home = () => {
   return (
     <Container>
       {!loading ? (
-        <Grid2 container justifyContent="center" spacing={4} mt={10}>
+        <Grid container justifyContent="center" spacing={4} mt={10}>
           <CategoryBar />
           {products.map((product) => (
-            <Grid2 item key={product.id}>
+            <Grid item key={product.id}>
               <ProductCard product={product} text="Add" />
-            </Grid2>
+            </Grid>
           ))}
-        </Grid2>
+        </Grid>
       ) : (
-        <Grid2 container justifyContent="center" alignItems={'center'} mt={15}>
+        <Grid container justifyContent="center" alignItems={'center'} mt={15}>
           <CircularProgress />
-        </Grid2>
+        </Grid>
       )}
     </Container>
   );
